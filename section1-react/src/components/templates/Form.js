@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Form = () => {
   const [form, setForm] = useState({
@@ -11,6 +12,16 @@ const Form = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
+  };
+
+  const navigate = useNavigate();
+
+  const goToResult = (form) => {
+    navigate('/result', { state: form });
+  };
+
+  const handleSubmit = (e) => {
+    goToResult(form);
   };
 
   return (
@@ -36,7 +47,6 @@ const Form = () => {
             value="male"
             onChange={handleInputChange}
           />
-          <br />
           男性
           <input
             id="female"
@@ -78,11 +88,7 @@ const Form = () => {
           </select>
         </label>
       </form>
-      <p>確認</p>
-      <p>{form.name}</p>
-      <p>{form.age}</p>
-      <p>{form.gender}</p>
-      <p>{form.comment}</p>
+      <button onClick={handleSubmit}>送信</button>
     </>
   );
 };

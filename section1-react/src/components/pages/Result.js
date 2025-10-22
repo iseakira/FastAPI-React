@@ -1,5 +1,20 @@
+import React from 'react';
+import { useLocation } from 'react-router-dom';
+
 const Result = () => {
-  return <div>結果</div>;
+  const location = useLocation();
+  const result = location.state;
+
+  return (
+    <>
+      <h1>送信結果ページ</h1>
+
+      <p>名前：{result.name}</p>
+      <p>年齢：{result.age}</p>
+      <p>性別：{result.gender}</p>
+      <p>コメント：{result.comment}</p>
+    </>
+  );
 };
 
 export default Result;

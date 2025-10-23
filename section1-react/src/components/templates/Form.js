@@ -1,5 +1,14 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import {
+  Container,
+  Box,
+  Typography,
+  TextField,
+  Select,
+  MenuItem,
+  InputLabel,
+} from '@mui/material';
 
 const Form = () => {
   const [form, setForm] = useState({
@@ -25,18 +34,46 @@ const Form = () => {
   };
 
   return (
-    <>
-      <form>
-        <label htmlFor="name">
-          名前
-          <input
-            id="name"
-            type="text"
-            name="name"
-            value={form.name}
+    <Container>
+      <Box
+        sx={{
+          marginTop: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Typography variant="h4" component="h1" gutterBottom>
+          アンケート提出
+        </Typography>
+        <br />
+
+        <TextField
+          id="name"
+          variant="outlined"
+          label="名前"
+          value={form.name}
+          name="name"
+          onChange={handleInputChange}
+          fullWidth
+        />
+
+        <Box sx={{ width: '100%' }}>
+          <InputLabel id="demo-simple-select-label">年齢</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            name="age"
+            id="age"
+            value={form.age}
             onChange={handleInputChange}
-          />
-        </label>
+            fullWidth
+          >
+            <MenuItem value={10}>10代</MenuItem>
+            <MenuItem value={20}>20代</MenuItem>
+            <MenuItem value={30}>30代</MenuItem>
+          </Select>
+        </Box>
+
         <br />
         <label htmlFor="gender">
           性別
@@ -75,21 +112,9 @@ const Form = () => {
             onChange={handleInputChange}
           />
         </label>
-        <label htmlFor="age">
-          <select
-            value={form.age}
-            id="age"
-            name="age"
-            onChange={handleInputChange}
-          >
-            <option value={10}> 10代</option>
-            <option value={20}> 20代</option>
-            <option value={30}> 30代</option>
-          </select>
-        </label>
-      </form>
-      <button onClick={handleSubmit}>送信</button>
-    </>
+        <button onClick={handleSubmit}>送信</button>
+      </Box>
+    </Container>
   );
 };
 

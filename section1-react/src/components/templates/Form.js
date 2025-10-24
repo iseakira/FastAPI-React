@@ -14,6 +14,7 @@ import {
   FormLabel,
   Button,
 } from '@mui/material';
+import SendIcon from '@mui/icons-material/Send';
 
 const Form = () => {
   const [form, setForm] = useState({
@@ -39,7 +40,7 @@ const Form = () => {
   };
 
   return (
-    <Container>
+    <Container maxWidth="sm">
       <Box
         sx={{
           marginTop: 1,
@@ -83,9 +84,9 @@ const Form = () => {
           <FormLabel id="radio">性別</FormLabel>
           <Box sx={{ border: 1, borderRadius: 1, borderColor: 'grey.500' }}>
             <RadioGroup
-              aria-labelledby="demo-radio-buttons-group-label"
-              defaultValue="female"
               name="gender"
+              value={form.gender} // 2. value を追加
+              onChange={handleInputChange} // 1. RadioGroup に onChange を移動
             >
               <FormControlLabel value="女性" control={<Radio />} label="女性" />
               <FormControlLabel value="男性" control={<Radio />} label="男性" />
@@ -93,7 +94,6 @@ const Form = () => {
                 value="無所属"
                 control={<Radio />}
                 label="無所属"
-                onChange={handleInputChange}
               />
             </RadioGroup>
           </Box>
@@ -107,8 +107,16 @@ const Form = () => {
           value={form.comment}
           fullWidth
           sx={{ mt: 2 }}
+          name="comment"
         />
-        <Button variant="contained" onChange={handleSubmit} sx={{ mt: 2 }}>
+        <Button
+          variant="contained"
+          name="submit"
+          onClick={handleSubmit}
+          sx={{ mt: 2 }}
+          endIcon={<SendIcon />}
+          fullWidth
+        >
           送信
         </Button>
       </Box>

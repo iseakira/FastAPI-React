@@ -8,6 +8,11 @@ import {
   Select,
   MenuItem,
   InputLabel,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  FormLabel,
+  Button,
 } from '@mui/material';
 
 const Form = () => {
@@ -58,7 +63,7 @@ const Form = () => {
           fullWidth
         />
 
-        <Box sx={{ width: '100%' }}>
+        <Box sx={{ width: '100%', mt: 2 }}>
           <InputLabel id="demo-simple-select-label">年齢</InputLabel>
           <Select
             labelId="demo-simple-select-label"
@@ -74,45 +79,38 @@ const Form = () => {
           </Select>
         </Box>
 
-        <br />
-        <label htmlFor="gender">
-          性別
-          <input
-            id="male"
-            name="gender"
-            type="radio"
-            value="male"
-            onChange={handleInputChange}
-          />
-          男性
-          <input
-            id="female"
-            name="gender"
-            type="radio"
-            value="female"
-            onChange={handleInputChange}
-          />
-          女性
-          <input
-            id="others"
-            name="gender"
-            type="radio"
-            value="others"
-            onChange={handleInputChange}
-          />
-          その他
-        </label>
-        <br />
-        <label htmlFor="comment">
-          コメント
-          <textarea
-            name="comment"
-            placeholder="コメントをいれてください"
-            value={form.comment}
-            onChange={handleInputChange}
-          />
-        </label>
-        <button onClick={handleSubmit}>送信</button>
+        <Box sx={{ width: '100%', mt: 2 }} fullWidth>
+          <FormLabel id="radio">性別</FormLabel>
+          <Box sx={{ border: 1, borderRadius: 1, borderColor: 'grey.500' }}>
+            <RadioGroup
+              aria-labelledby="demo-radio-buttons-group-label"
+              defaultValue="female"
+              name="gender"
+            >
+              <FormControlLabel value="女性" control={<Radio />} label="女性" />
+              <FormControlLabel value="男性" control={<Radio />} label="男性" />
+              <FormControlLabel
+                value="無所属"
+                control={<Radio />}
+                label="無所属"
+                onChange={handleInputChange}
+              />
+            </RadioGroup>
+          </Box>
+        </Box>
+
+        <TextField
+          id="outlined-basic"
+          label="コメント"
+          variant="outlined"
+          onChange={handleInputChange}
+          value={form.comment}
+          fullWidth
+          sx={{ mt: 2 }}
+        />
+        <Button variant="contained" onChange={handleSubmit} sx={{ mt: 2 }}>
+          送信
+        </Button>
       </Box>
     </Container>
   );

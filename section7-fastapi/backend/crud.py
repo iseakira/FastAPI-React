@@ -15,7 +15,7 @@ def get_user_by_name_bypassword(db:Session,username:str,password:str):
   return db.query(models.User).filter(models.User.name == username).filter(models.User.password == password).first()
 
 def create_user(db:Session,user:schemas.UserCreate):
-  db_user = models.User(name=user.username,password=user.password)
+  db_user = models.User(name=user.name,password=user.password)
   db.add(db_user)
   db.commit()
   db.refresh(db_user)

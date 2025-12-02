@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 class UserBase(BaseModel):
-    username: str
+    name: str
 
 class UserCreate(UserBase):
     password: str
@@ -12,7 +12,7 @@ class User(UserBase):
     is_active: bool
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class SalesBase(BaseModel):
     year:int
@@ -24,5 +24,5 @@ class SalesCreate(SalesBase):
 
 class Sales(SalesBase):
     class Config:
-        orm_mode = True
+        from_attributes = True
    

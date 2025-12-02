@@ -11,7 +11,7 @@ def get_user(db:Session,user_id:int):
 def get_user_by_name(db:Session,username:str):
   return db.query(models.User).filter(models.User.name == username).first()
 
-def get_user_by_name_bypassword(db:Session,username:str,password:str):
+def get_user_by_name_by_password(db:Session,username:str,password:str):
   return db.query(models.User).filter(models.User.name == username).filter(models.User.password == password).first()
 
 def create_user(db:Session,user:schemas.UserCreate):
@@ -26,6 +26,10 @@ def get_sales(db:Session):
 
 def get_sales_by_year(db:Session,year:int):
   return db.query(models.Sales).filter(models.Sales.year == year).all()
+
+def get_sales_by_year_by_department(db:Session,department:str,year:int):
+  return db.query(models.Sales).filter(models.Sales.year == year).filter(models.Sales.department == department).all()
+  
 
 def create_sales(db:Session,sales:schemas.SalesCreate):
   db_sales = models.Sales(year=sales.year,department=sales.department,sales=sales.sales)

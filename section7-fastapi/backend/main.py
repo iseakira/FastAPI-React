@@ -37,9 +37,23 @@ def create_sales(sales:schemas.SalesCreate, db:Session=Depends(get_db)):
 
   return crud.create_sales(db=db,sales=sales)
 
-@app.get("/sales/",response_model=schemas.Sales)
-def get_sales(year:int, department:str, db:Session=Depends(get_db)):
-  db_sales = crud.get_sales_by_year_by_department(db,department = department, year=year)
+@app.get("/sales/",response_model=list[schemas.Sales])
+def read_sales(db:Session=Depends(get_db)):
+  db_sales = crud.get_sales(db)
   if db_sales is None:
     raise HTTPException(status_code=404, detail="Sales data not found")
+  return db_sales
+
+@app.get("/sales/{year}",response_model=list[schemas.Sales])
+def read_sales_by_year(year:int, db:Session=Depends(get_db)):
+  db_sales = crud.get_sales_by_year(db,year=year)
+  if db_sales is None:
+    raise HTTPException(status_code=404, detail="Sales data not found for the year")
+  return db_sales
+
+@app.get("/sales/{year}/{department}",response_model=list[schemas.Sales])
+def read_sales_by_year_by_department(year:int, department:str, db:Session=Depends(get_db)):
+  db_sales = crud.get_sales_by_year_by_department(db,year=year,department=department)
+  if db_sales is None:
+    raise HTTPException(status_code=404, detail="Sales data not found for the year and department")
   return db_sales

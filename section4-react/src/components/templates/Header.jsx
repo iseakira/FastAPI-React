@@ -4,18 +4,21 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import BasicMenu from '../elements/BasicMenu';
 import { Grid } from '@mui/material';
+import { LoginUserContext } from '../providers/LoginUserProvider';
+import { useContext } from 'react';
 
-const Header = () => {
+const Header = (props) => {
+  const { LoginUser } = useContext(LoginUserContext);
   return (
     <AppBar position="static">
       <Toolbar>
-        <Grid container>
-          <Grid size={6}>
+        <Grid container alignItems="center">
+          <Grid item xs={6}>
             <BasicMenu />
           </Grid>
-          <Grid size={6} sx={{ textAlign: 'center' }}>
-            <Typography variant="p" component="div">
-              ログインユーザー:
+          <Grid item xs={6} sx={{ textAlign: 'right' }}>
+            <Typography variant="h6" component="div">
+              ログインユーザー:{LoginUser}
             </Typography>
           </Grid>
         </Grid>

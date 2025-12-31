@@ -5,5 +5,5 @@ export const useCreateSales = () => {
   const onClickCreateSales = (data) => {
     console.log(data);
   };
-  return onClickCreateSales;
+  return { onClickCreateSales };
 };

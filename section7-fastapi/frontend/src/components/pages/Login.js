@@ -1,39 +1,20 @@
 import { Container, Box, Typography, TextField, Button } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import axios from 'axios';
-import { LoginUserContext } from '../providers/LoginUserProvider';
-import { useContext } from 'react';
+import { useLogin } from '../hooks/useLogin';
 
 const Login = () => {
-  const { setLoginUser, setIsLogined } = useContext(LoginUserContext);
+  const { login } = useLogin();
   const [user, setUser] = useState({
     username: '',
     password: '',
   });
-  const navigate = useNavigate();
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   };
-
   const onClickLogin = () => {
-    console.log('ログイン処理実行');
-    const endpoint = ' http://127.0.0.1:8000/users';
-    const queries = { name: user.username, password: user.password };
-    axios.get(endpoint, { params: queries }).then((res) => {
-      console.log(res.data);
-      if (Object.keys(res.data).length > 0) {
-        console.log('ログイン成功');
-        setLoginUser(user.username);
-        setIsLogined(true);
-        navigate('/', { state: { username: 'ABC' } });
-      } else {
-        console.log('ログイン失敗');
-        navigate('/loginfailed');
-      }
-    });
+    login(user);
   };
 
   return (

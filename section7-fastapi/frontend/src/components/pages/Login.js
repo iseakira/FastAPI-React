@@ -20,18 +20,18 @@ const Login = () => {
 
   const onClickLogin = () => {
     console.log('ログイン処理実行');
-    const endpoint = 'https://jsonplaceholder.typicode.com/users';
-    const queries = { username: user.username, id: user.password };
+    const endpoint = ' http://127.0.0.1:8000/users';
+    const queries = { name: user.username, password: user.password };
     axios.get(endpoint, { params: queries }).then((res) => {
-      console.log(res.data[0]);
-      if (res.data[0] === undefined) {
-        console.log('ユーザーが存在しません');
-        navigate('/loginfailed');
-      } else {
+      console.log(res.data);
+      if (Object.keys(res.data).length > 0) {
         console.log('ログイン成功');
-        setLoginUser(res.data[0].username);
+        setLoginUser(user.username);
         setIsLogined(true);
         navigate('/', { state: { username: 'ABC' } });
+      } else {
+        console.log('ログイン失敗');
+        navigate('/loginfailed');
       }
     });
   };

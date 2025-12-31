@@ -1,5 +1,7 @@
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
+from fastapi.middleware.cors import CORSMiddleware
+
 
 from .import models, schemas, crud
 from .database import SessionLocal, engine
@@ -7,6 +9,18 @@ from .database import SessionLocal, engine
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+
+origins = [
+  "http://localhost:3002",
+]
+
+app.add_middleware(
+  CORSMiddleware,
+  allow_origins=origins,
+  allow_credentials=True,
+  allow_methods=["*"],
+  allow_headers=["*"],
+)
 
 def get_db():
   db = SessionLocal()
@@ -22,7 +36,7 @@ def create_user(user:schemas.UserCreate, db:Session=Depends(get_db)):
     raise HTTPException(status_code=400, detail="Username already registered")
   return crud.create_user(db=db,user=user)
 
-@app.get("/users/",response_model=schemas.User)
+@app.get("/users",response_model=schemas.User)
 def read_user(name:str,password:str, db:Session=Depends(get_db)):
   db_user = crud.get_user_by_name_by_password(db,username=name,password=password)
   if db_user is None:

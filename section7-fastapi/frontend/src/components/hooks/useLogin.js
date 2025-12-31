@@ -10,18 +10,25 @@ export const useLogin = () => {
     console.log('ログイン処理実行');
     const endpoint = ' http://127.0.0.1:8000/users';
     const queries = { name: user.username, password: user.password };
-    axios.get(endpoint, { params: queries }).then((res) => {
-      console.log(res.data);
-      if (Object.keys(res.data).length > 0) {
-        console.log('ログイン成功');
-        setLoginUser(user.username);
-        setIsLogined(true);
-        navigate('/', { state: { username: 'ABC' } });
-      } else {
-        console.log('ログイン失敗');
+    axios
+      .get(endpoint, { params: queries })
+      .then((res) => {
+        console.log(res.data);
+        if (Object.keys(res.data).length > 0) {
+          console.log('ログイン成功');
+          setLoginUser(user.username);
+          setIsLogined(true);
+          navigate('/', { state: { username: 'ABC' } });
+        } else {
+          console.log('ログイン失敗');
+          navigate('/loginfailed');
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        setLoginUser({ username: '', password: '' });
         navigate('/loginfailed');
-      }
-    });
+      });
   };
   return { login };
 };

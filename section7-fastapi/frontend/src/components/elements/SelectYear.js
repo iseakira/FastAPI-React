@@ -15,6 +15,7 @@ const SelectYear = (props) => {
           onChange={handleChange}
           fullWidth
           name="year"
+          defaultValue=""
         >
           <MenuItem value={2020}>2020</MenuItem>
           <MenuItem value={2021}>2021</MenuItem>

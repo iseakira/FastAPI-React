@@ -6,6 +6,7 @@ import { useContext } from 'react';
 import ReadCsv from '../elements/ReadCsv';
 import Barchart from '../elements/BarChart';
 import SelectYear from '../elements/SelectYear';
+import ReadDatabase from '../elements/ReadDatabase';
 
 const Home = () => {
   const { LoginUser, isLogined } = useContext(LoginUserContext);
@@ -27,6 +28,7 @@ const Home = () => {
         <h3>CSVをデータベースで格納する</h3>
         <ReadCsv handleDataChange={handleDataChange} />
         <SelectYear handleYearChange={handleYearChange} />
+        <ReadDatabase year={year} handleDataChange={handleDataChange} />
         ホーム画面:{LoginUser}
         <h3>グラフ表示</h3>
         <Barchart data={data} />
